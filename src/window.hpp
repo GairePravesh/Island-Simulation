@@ -8,3 +8,5 @@ void Initialize(int, char*[]);
 void InitWindow(int, char*[]);
 void ResizeFunction(int, int);
 void RenderFunction(void);
+void TimerFunction(int);
+void IdleFunction(void);

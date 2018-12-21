@@ -2,8 +2,16 @@
 
 void Initialize(int argc, char* argv[])
 {
+  GLenum GlewInitResult;
+
   InitWindow(argc, argv);
   
+  GlewInitResult = glewInit();
+  if (GLEW_OK != GlewInitResult) {
+    std::cout<<"ERROR: \n"<<glewGetErrorString(GlewInitResult)<<std::endl;
+    exit(EXIT_FAILURE);
+  }
+
   std::cout<<"OpenGL Version: "<<glGetString(GL_VERSION)<<std::endl;
 
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -32,6 +40,8 @@ void InitWindow(int argc, char* argv[])
 
   glutReshapeFunc(ResizeFunction);
   glutDisplayFunc(RenderFunction);
+  glutIdleFunc(IdleFunction);
+  glutTimerFunc(0, TimerFunction, 0); 
 }
 
 void ResizeFunction(int Width, int Height)
@@ -43,8 +53,25 @@ void ResizeFunction(int Width, int Height)
 
 void RenderFunction(void)
 {
+  ++FrameCount;
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glutSwapBuffers();
   glutPostRedisplay();
+}
+
+void IdleFunction(void)
+{
+  glutPostRedisplay();
+}
+
+void TimerFunction(int Value)
+{
+  if (Value) {
+    std::cout<<FrameCount<<" Frames Per Second"<<std::endl;
+  }
+  
+  FrameCount = 0;
+  glutTimerFunc(1000, TimerFunction, 1);
 }

@@ -4,9 +4,11 @@
 int main(int argc, char* argv[])
 {
   Initialize(argc, argv);
-
+  
+  // draw
+  
   glutMainLoop();
   
-  return 0;
+  exit(EXIT_SUCCESS); 
 }
 
