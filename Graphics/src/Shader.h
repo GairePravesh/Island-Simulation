@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 
+#include <unordered_map>
+
 struct ParsedShaderSource {
 	std::string VertexSource;
 	std::string FragmentSource;
@@ -17,6 +19,7 @@ class Shader
 private:
 	std::string m_FilePath;
 	unsigned int m_RendererID;
+	std::unordered_map<std::string, int>m_UniformLocationCache;
 public:
 	Shader(const std::string& filepath);
 	~Shader();

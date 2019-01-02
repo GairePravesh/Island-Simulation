@@ -9,7 +9,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
-
+#include "Renderer.h"
 
 int main(void)
 {
@@ -72,13 +72,14 @@ int main(void)
 	shader.Bind();
 	shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.2f, 1.0f);
 
+	Renderer renderer;
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		renderer.Clear();
+		renderer.draw(va, ib, shader);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
