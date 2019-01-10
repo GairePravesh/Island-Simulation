@@ -543,6 +543,11 @@
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\cherno.png" />
+    <Image Include="res\textures\image.jpg" />
+    <Image Include="res\textures\me.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
