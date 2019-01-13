@@ -13,8 +13,8 @@ uniform mat4 u_Proj;
 void main()
 {
 	gl_Position = u_Proj * u_View * u_Model * vec4(position,1.0f);
-	//v_TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-	v_TexCoord = texCoord;
+	v_TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
+	//v_TexCoord = texCoord;
 };
 
 #shader fragment

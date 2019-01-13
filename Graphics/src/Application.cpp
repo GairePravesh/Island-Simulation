@@ -17,7 +17,6 @@
 
 int main(void)
 {
-	GLFWwindow* window;
 
 	/* Initialize the library */
 	if (!glfwInit())
@@ -30,6 +29,7 @@ int main(void)
 	// Set all the required options for GLFW
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	
+	GLFWwindow* window;
 	
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
@@ -41,60 +41,61 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-
-	glfwSwapInterval(1);
+	//glfwSwapInterval(1);
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 		return -1;
 
-	std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
+	glEnable(GL_DEPTH_TEST);
 
-	// Set up vertex data (and buffer(s)) and attribute pointers
-	// use with Orthographic Projection
+	std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
+	//OrthoGraphic
 	/*
 	GLfloat positions[] = {
-		-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
-		0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 0.0f,
-		0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-		0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-		-0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 0.0f,
+		-0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 0.0f,
+		0.5f * 100, -0.5f * 100, -0.5f * 100,  1.0f, 0.0f,
+		0.5f * 100,  0.5f * 100, -0.5f * 100,  1.0f, 1.0f,
+		0.5f * 100,  0.5f * 100, -0.5f * 100,  1.0f, 1.0f,
+		-0.5f * 100,  0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		-0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 0.0f,
 
-		-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-		0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-		0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 1.0f,
-		-0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 1.0f,
-		-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
+		-0.5f * 100, -0.5f * 100,  0.5f * 100,  0.0f, 0.0f,
+		0.5f * 100, -0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 1.0f,
+		0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 1.0f,
+		-0.5f * 100,  0.5f * 100,  0.5f * 100,  0.0f, 1.0f,
+		-0.5f * 100, -0.5f * 100,  0.5f * 100,  0.0f, 0.0f,
 
-		-0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		-0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-		-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-		-0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
+		-0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		-0.5f * 100,  0.5f * 100, -0.5f * 100,  1.0f, 1.0f,
+		-0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		-0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		-0.5f * 100, -0.5f * 100,  0.5f * 100,  0.0f, 0.0f,
+		-0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
 
-		0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-		0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-		0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
+		0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		0.5f * 100,  0.5f * 100, -0.5f * 100,  1.0f, 1.0f,
+		0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		0.5f * 100, -0.5f * 100,  0.5f * 100,  0.0f, 0.0f,
+		0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
 
-		-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		0.5f * 500, -0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-		0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		0.5f * 500, -0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		-0.5f * 500, -0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-		-0.5f * 500, -0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
+		-0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		0.5f * 100, -0.5f * 100, -0.5f * 100,  1.0f, 1.0f,
+		0.5f * 100, -0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		0.5f * 100, -0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		-0.5f * 100, -0.5f * 100,  0.5f * 100,  0.0f, 0.0f,
+		-0.5f * 100, -0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
 
-		-0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f,
-		0.5f * 500,  0.5f * 500, -0.5f * 500,  1.0f, 1.0f,
-		0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		0.5f * 500,  0.5f * 500,  0.5f * 500,  1.0f, 0.0f,
-		-0.5f * 500,  0.5f * 500,  0.5f * 500,  0.0f, 0.0f,
-		-0.5f * 500,  0.5f * 500, -0.5f * 500,  0.0f, 1.0f
-	};*/
+		-0.5f * 100,  0.5f * 100, -0.5f * 100,  0.0f, 1.0f,
+		0.5f * 100,  0.5f * 100, -0.5f * 100,  1.0f, 1.0f,
+		0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		0.5f * 100,  0.5f * 100,  0.5f * 100,  1.0f, 0.0f,
+		-0.5f * 100,  0.5f * 100,  0.5f * 100,  0.0f, 0.0f,
+		-0.5f * 100,  0.5f * 100, -0.5f * 100,  0.0f, 1.0f
+	};
+	*/
+	//Perspective
 	float positions[] = 
 	{
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -143,9 +144,11 @@ int main(void)
 	int screenWidth, screenHeight;
 	glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
 	glViewport(0, 0, screenWidth, screenHeight);
-	glEnable(GL_DEPTH_TEST);
+	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
+	//glDepthMask(GL_TRUE);
+	//glDepthFunc(GL_LESS);
 
 	unsigned int vao;
 	glGenVertexArrays(1, &vao);
@@ -168,22 +171,20 @@ int main(void)
 
 	Renderer renderer;
 	
-	// Ortho
-	//glm::mat4 projection = glm::ortho(0.0f,(float)screenWidth, 0.0f, (float)//screenHeight,0.10f,1000.0f); 
-	//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3/(screenWidth/2,screenHeight/2, /0));
-	//glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0,0, 0));
+	//Perspective
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
+	glm::mat4 model = glm::rotate(glm::mat4(1.0f), -45.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f,0.50f, -3.0f));
 	
-	//
-	//shader.SetUniformMat4f("u_Model", model);
-	//shader.SetUniformMat4f("u_View", view);
-	//shader.SetUniformMat4f("u_Proj", projection);
+	//Orthographic
+	//glm::mat4 projection = glm::ortho(0.0f, (float)screenWidth, 0.0f, (float)screenHeight, 0.1f, 100.0f);
+	//glm::mat4 model = glm::rotate(glm::mat4(1.0f), -45.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	//glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3((float)screenWidth/2, (float)screenHeight/2, -87.0f));
+	
+	shader.SetUniformMat4f("u_View", view);
+	shader.SetUniformMat4f("u_Proj", projection);
+	shader.SetUniformMat4f("u_Model", model);
 
-	//Pers
-	glm::mat4 projection;
-	
-	projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);
-	
-	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Poll for and process events */
@@ -191,19 +192,14 @@ int main(void)
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		/* Render here */
 		renderer.Clear();
-		glm::mat4 model;
-		glm::mat4 view;
-		
-		model = glm::rotate(model, 10.0f, glm::vec3(0.5f,1.0f,0.0f));
-		view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f,0.0f,-3.0f));
-		
-		shader.SetUniformMat4f("u_Model", model);
-		shader.SetUniformMat4f("u_View", view);
-		shader.SetUniformMat4f("u_Proj", projection);
+
+		//glm::mat4 model = glm::mat4(1.0f);
+		//model = glm::rotate(model, (float)glfwGetTime() * -1.0f, glm::vec3(0.50f, 0.50f, 0.0f));
+		//shader.SetUniformMat4f("u_Model", model);
 
 		renderer.Draw(va, shader);
 		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(window);		
 	}
 
 
