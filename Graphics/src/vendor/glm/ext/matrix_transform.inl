@@ -11,7 +11,7 @@ namespace glm
 	{
 		mat<4, 4, T, Q> Result(m);
 		Result[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
-		return Result;
+		return Result;	
 	}
 
 	template<typename T, qualifier Q>
