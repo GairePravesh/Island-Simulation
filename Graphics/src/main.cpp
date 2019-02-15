@@ -16,8 +16,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
 // Settings
-const unsigned int screen_width = 800;
-const unsigned int screen_height = 600;
+unsigned int screen_width = 800;
+unsigned int screen_height = 600;
 
 // Camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -40,7 +40,21 @@ int main() {
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "Graphics Project", NULL, NULL);
+	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+	GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Graphics Project", monitor, NULL);
+	
+	screen_height = mode->height;
+	screen_width = mode->width;
+	
+	//GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "Graphics Project", NULL, NULL);
+	
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
