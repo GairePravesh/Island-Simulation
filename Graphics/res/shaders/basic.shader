@@ -37,6 +37,11 @@ uniform vec3 u_LightCol;
 uniform vec3 u_LightPos;
 uniform vec3 viewPos;
 
+// for spotlight i.e camera front
+uniform vec3 u_LightDir; 
+uniform float u_LightcutOff;
+uniform float u_LightouterCutOff;
+
 void main()
 {
 	vec4 texColor = texture(u_Texture, v_TexCoord);
@@ -47,18 +52,34 @@ void main()
 
 	// Diffuse
 	vec3 norm = normalize(Normal);
-	vec3 lightDir = normalize(u_LightPos - FragPos);
-
+	vec3 lightDir = normalize(u_LightPos - FragPos); // Positional Light
+	//vec3 lightDir = normalize(-u_LightPos); // Directional Light but doesnot seem to work properly 
 	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 diffuse = diff * u_LightCol;
+	vec3 diffuse = 0.8 * diff * u_LightCol;
 
 	// Specular
-	float specularStrength = 0.5;
+	float specularStrength = 1.0f;
 	vec3 viewDir = normalize(viewPos - FragPos);
 	vec3 reflectDir = reflect(-lightDir, norm);
 
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 	vec3 specular = specularStrength * spec * u_LightCol;
+
+	// spotlight (soft edges)
+	float theta = dot(lightDir, normalize(-u_LightDir));
+	float epsilon = u_LightcutOff - u_LightouterCutOff;
+	
+	float intensity = clamp((theta - u_LightouterCutOff) / epsilon, 0.0, 1.0);
+	diffuse *= intensity;
+	specular *= intensity;
+
+	// attenuation for point lights
+	float distance = length(u_LightPos - FragPos);
+	float attenuation = 1.0 / (1.0f + 0.09f * distance + 0.032f * (distance * distance));
+
+	ambient *= attenuation;
+	diffuse *= attenuation;
+	specular *= attenuation;
 
 	vec3 result = ambient + diffuse + specular;
 

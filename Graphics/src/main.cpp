@@ -31,7 +31,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // Light
-glm::vec3 lightPos(0.0f, 5.0f, 0.0f);
+glm::vec3 lightPos(0.0f, 0.0f, 0.0f);
 glm::vec3 lightCol(1.0f, 1.0f, 1.0f);
 
 int main() {
@@ -206,7 +206,7 @@ int main() {
 
 	va.AddBuffer(vb, layout);
 
-	Texture texture("res/textures/image.jpg");
+	Texture texture("res/textures/container.png");
 	texture.Bind();
 
 	shaderObj.Bind();
@@ -214,6 +214,11 @@ int main() {
 	shaderObj.SetUniform3f("u_LightCol", lightCol.x, lightCol.y, lightCol.z);
 	shaderObj.SetUniform3f("u_LightPos", lightPos.x, lightPos.y, lightPos.z);
 	shaderObj.SetUniform3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+	shaderObj.SetUniform1f("u_LightcutOff", glm::cos(glm::radians(12.5f)));
+	shaderObj.SetUniform1f("u_LightouterCutOff", glm::cos(glm::radians(17.5f)));
+
+	shaderLig.Bind();
+	shaderLig.SetUniform3f("u_LightCol", lightCol.x, lightCol.y, lightCol.z);
 
 	// Light
 	unsigned int lightvao;
@@ -251,7 +256,12 @@ int main() {
 		// camera / view transformation
 		glm::mat4 view = camera.GetViewMatrix();
 		shaderObj.SetUniformMat4f("u_View", view);
-			
+
+		//shaderObj.SetUniform3f("u_LightPos", lightPos.x, lightPos.y, lightPos.z);
+		shaderObj.SetUniform3f("u_LightPos", camera.Position.x, camera.Position.y, camera.Position.z);
+		shaderObj.SetUniform3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
+		shaderObj.SetUniform3f("u_LightDir", camera.Front.x, camera.Front.y, camera.Front.z);
+
 		// render boxes
 		for (unsigned int i = 0; i < 10; i++)
 		{
@@ -268,12 +278,14 @@ int main() {
 		shaderLig.SetUniformMat4f("u_Proj", projection);
 		shaderLig.SetUniformMat4f("u_View", view);
 
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.5f)); // a smaller cube
-		shaderLig.SetUniformMat4f("u_Model", model);
+		lightPos.x = 5.0f * sin(currentFrame * 0.1f);
+		lightPos.y = 5.0f * cos(currentFrame * 0.1f);
 
-		renderer.Draw(lightva, shaderLig);
+		//glm::mat4 model = glm::mat4(1.0f);
+		//model = glm::translate(model, lightPos);
+		//model = glm::scale(model, glm::vec3(0.5f)); // a smaller cube
+		//shaderLig.SetUniformMat4f("u_Model", model);
+		//renderer.Draw(lightva, shaderLig);
 
 		// swap buffers and poll IO
 		glfwSwapBuffers(window);
