@@ -32,6 +32,7 @@ float lastFrame = 0.0f;
 
 // Light
 glm::vec3 lightPos(0.0f, 5.0f, 0.0f);
+glm::vec3 lightCol(1.0f, 1.0f, 1.0f);
 
 int main() {
 
@@ -88,47 +89,48 @@ int main() {
 	shaderLig.Unbind();
 
 	float vertices[] = {
-		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
-
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-		-0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-
-		-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
+		// Position [3] Texture Coordinates [2] Normals [3]
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,	0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  1.0f,	0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  1.0f,	0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,	0.0f,  0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f,  0.0f,  0.0f, -1.0f,
+									 
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,	0.0f,  0.0f,  1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,	0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  1.0f,	0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  1.0f,	0.0f,  0.0f,  1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,	0.0f,  0.0f,  1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,	0.0f,  0.0f,  1.0f,
+									 
+		-0.5f,  0.5f,  0.5f,  1.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+									 
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,	1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  1.0f,	1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  1.0f,	1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  1.0f,	1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,	1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,	1.0f,  0.0f,  0.0f,
+         					  		 
+		-0.5f, -0.5f, -0.5f,  0.0f,  1.0f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  1.0f,	0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,	0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,	0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,	0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  1.0f,  0.0f, -1.0f,  0.0f,
+							  		 
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+ 		 0.5f,  0.5f, -0.5f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,	0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f
 	};
 
 	float lightvertices[] = {
@@ -195,11 +197,12 @@ int main() {
 	glBindVertexArray(vao);
 
 	VertexArray va;
-	VertexBuffer vb(vertices, 6 * 5 * 6 * sizeof(float));
+	VertexBuffer vb(vertices, 6 * 8 * 6 * sizeof(float));
 
 	VertexBufferLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(2);
+	layout.Push<float>(3);
 
 	va.AddBuffer(vb, layout);
 
@@ -208,6 +211,9 @@ int main() {
 
 	shaderObj.Bind();
 	shaderObj.SetUniform1i("u_Texture", 0);
+	shaderObj.SetUniform3f("u_LightCol", lightCol.x, lightCol.y, lightCol.z);
+	shaderObj.SetUniform3f("u_LightPos", lightPos.x, lightPos.y, lightPos.z);
+	shaderObj.SetUniform3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
 
 	// Light
 	unsigned int lightvao;
@@ -245,7 +251,7 @@ int main() {
 		// camera / view transformation
 		glm::mat4 view = camera.GetViewMatrix();
 		shaderObj.SetUniformMat4f("u_View", view);
-
+			
 		// render boxes
 		for (unsigned int i = 0; i < 10; i++)
 		{
