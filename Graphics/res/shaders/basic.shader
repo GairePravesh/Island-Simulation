@@ -66,20 +66,20 @@ void main()
 	vec3 specular = specularStrength * spec * u_LightCol;
 
 	// spotlight (soft edges)
-	float theta = dot(lightDir, normalize(-u_LightDir));
-	float epsilon = u_LightcutOff - u_LightouterCutOff;
-	
-	float intensity = clamp((theta - u_LightouterCutOff) / epsilon, 0.0, 1.0);
-	diffuse *= intensity;
-	specular *= intensity;
-
-	// attenuation for point lights
-	float distance = length(u_LightPos - FragPos);
-	float attenuation = 1.0 / (1.0f + 0.09f * distance + 0.032f * (distance * distance));
-
-	ambient *= attenuation;
-	diffuse *= attenuation;
-	specular *= attenuation;
+	//float theta = dot(lightDir, normalize(-u_LightDir));
+	//float epsilon = u_LightcutOff - u_LightouterCutOff;
+	//
+	//float intensity = clamp((theta - u_LightouterCutOff) / epsilon, 0.0, 1.0);
+	//diffuse *= intensity;
+	//specular *= intensity;
+	//
+	//// attenuation for point / spot lights
+	//float distance = length(u_LightPos - FragPos);
+	//float attenuation = 1.0 / (1.0f + 0.09f * distance + 0.032f * (distance * distance));
+	//
+	//ambient *= attenuation;
+	//diffuse *= attenuation;
+	//specular *= attenuation;
 
 	vec3 result = ambient + diffuse + specular;
 
