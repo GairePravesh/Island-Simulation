@@ -30,6 +30,9 @@ float currentFrame = 0.0f;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+// Light
+glm::vec3 lightPos(0.0f, 5.0f, 0.0f);
+
 int main() {
 
 	// glfw: Initialize and configuration
@@ -40,20 +43,20 @@ int main() {
 
 	// glfw window creation
 	// --------------------
-	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-
-	GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Graphics Project", monitor, NULL);
+	//GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+	//const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	//
+	//glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	//glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	//glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	//glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+	//
+	//GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Graphics Project", monitor, NULL);
+	//
+	//screen_height = mode->height;
+	//screen_width = mode->width;
 	
-	screen_height = mode->height;
-	screen_width = mode->width;
-	
-	//GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "Graphics Project", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(screen_width, screen_height, "Graphics Project", NULL, NULL);
 	
 	if (window == NULL)
 	{
@@ -79,8 +82,10 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 
 	// build and compile shaders
-	Shader shader("res/shaders/basic.shader");
-	shader.Bind();
+	Shader shaderObj("res/shaders/basic.shader");
+	shaderObj.Unbind();
+	Shader shaderLig("res/shaders/lamp.shader");
+	shaderLig.Unbind();
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
@@ -126,6 +131,50 @@ int main() {
 		-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
 	};
 
+	float lightvertices[] = {
+		-0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+
+		-0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,
+
+		-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+
+		-0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f, -0.5f,
+
+		-0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f, -0.5f,
+	};
+
 	// world space positions of our cubes
 	glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
@@ -140,6 +189,7 @@ int main() {
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
+	// Cubes
 	unsigned int vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -156,7 +206,21 @@ int main() {
 	Texture texture("res/textures/image.jpg");
 	texture.Bind();
 
-	shader.SetUniform1i("u_Texture", 0);
+	shaderObj.Bind();
+	shaderObj.SetUniform1i("u_Texture", 0);
+
+	// Light
+	unsigned int lightvao;
+	glGenVertexArrays(1, &lightvao);
+	glBindVertexArray(lightvao);
+
+	VertexArray lightva;
+	VertexBuffer lightvb(lightvertices, 6 * 5 * 3 * sizeof(float));
+
+	VertexBufferLayout lightlayout;
+	lightlayout.Push<float>(3);
+
+	lightva.AddBuffer(lightvb, lightlayout);
 
 	Renderer renderer;
 
@@ -175,11 +239,12 @@ int main() {
 
 		// projection matrix
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)screen_width / (float)screen_height, 0.1f, 100.0f);
-		shader.SetUniformMat4f("u_Proj", projection);
+		shaderObj.Bind();
+		shaderObj.SetUniformMat4f("u_Proj", projection);
 
 		// camera / view transformation
 		glm::mat4 view = camera.GetViewMatrix();
-		shader.SetUniformMat4f("u_View", view);
+		shaderObj.SetUniformMat4f("u_View", view);
 
 		// render boxes
 		for (unsigned int i = 0; i < 10; i++)
@@ -189,9 +254,20 @@ int main() {
 			model = glm::translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			shader.SetUniformMat4f("u_Model", model);
-			renderer.Draw(va, shader);
+			shaderObj.SetUniformMat4f("u_Model", model);
+			renderer.Draw(va, shaderObj);
 		}
+
+		shaderLig.Bind();
+		shaderLig.SetUniformMat4f("u_Proj", projection);
+		shaderLig.SetUniformMat4f("u_View", view);
+
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, lightPos);
+		model = glm::scale(model, glm::vec3(0.5f)); // a smaller cube
+		shaderLig.SetUniformMat4f("u_Model", model);
+
+		renderer.Draw(lightva, shaderLig);
 
 		// swap buffers and poll IO
 		glfwSwapBuffers(window);
