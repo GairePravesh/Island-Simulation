@@ -34,6 +34,8 @@ public:
 	int GetNumHeightmapRows();
 	int GetNumHeightmapCols();
 
+	float HeightAt(const glm::vec3& position);
+
 	static CShaderProgram* GetShaderProgram();
 
 	CMultiLayeredHeightmap();
@@ -53,4 +55,6 @@ private:
 
 	static CShaderProgram spTerrain;
 	static CShader shTerrainShaders[NUMTERRAINSHADERS];
+
+	vector< vector< glm::vec3> > vVertexData;
 };

@@ -58,7 +58,7 @@ bool CMultiLayeredHeightmap::LoadHeightMapFromImage(string sImagePath)
 
 	vboHeightmapData.CreateVBO();
 	// All vertex data are here (there are iRows*iCols vertices in this heightmap), we will get to normals later
-	vector< vector< glm::vec3> > vVertexData(iRows, vector<glm::vec3>(iCols));
+	vVertexData = vector< vector< glm::vec3> >(iRows, vector<glm::vec3>(iCols));
 	vector< vector< glm::vec2> > vCoordsData(iRows, vector<glm::vec2>(iCols));
 
 	float fTextureU = float(iCols)*0.1f;
@@ -73,6 +73,8 @@ bool CMultiLayeredHeightmap::LoadHeightMapFromImage(string sImagePath)
 			float fVertexHeight = float(*(bDataPointer+row_step*i+j*ptr_inc))/255.0f;
 			vVertexData[i][j] = glm::vec3(-0.5f+fScaleC, fVertexHeight, -0.5f+fScaleR);
 			vCoordsData[i][j] = glm::vec2(fTextureU*fScaleC, fTextureV*fScaleR);
+
+			//std::cout << vVertexData[i][j].x << " " << vVertexData[i][j].y << " " << vVertexData[i][j].z << std::endl;
 		}
 	}
 
@@ -334,4 +336,18 @@ int CMultiLayeredHeightmap::GetNumHeightmapRows()
 int CMultiLayeredHeightmap::GetNumHeightmapCols()
 {
 	return iCols;
+}
+
+float CMultiLayeredHeightmap::HeightAt(const glm::vec3 & position)
+{
+	float height = 0;
+
+	float x = position.x / vRenderScale.x;
+	float z = position.z / vRenderScale.z;
+
+	int row = (int)((x + 0.5) * (iRows - 1));
+	int col = (int)((z + 0.5) * (iCols - 1));
+	//std::cout << row << " " << col << std::endl;
+	//std::cout << vVertexData[224][100].x << " " << vVertexData[100][100].y  << " " << vVertexData[100][100].z << std::endl;
+	return vRenderScale.y * vVertexData[row][col].y;
 }

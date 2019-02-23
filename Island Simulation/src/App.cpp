@@ -41,6 +41,7 @@ float fFrameInterval = float(deltaTime) / float(CLOCKS_PER_SEC);
 
 float fAngleOfDarkness = 45.0f;
 
+glm::vec3 wolfy = glm::vec3(30.0f, 100.0f, 10.0f);
 
 CVertexBufferObject vboSceneObjects;
 UINT uiVAOSceneObjects;
@@ -48,7 +49,7 @@ UINT uiVAOSceneObjects;
 CFreeTypeFont ftFont;
 
 //CSkybox sbMainSkybox;
-Camera cCamera(glm::vec3(0.0f, 1000.0f, 0.0f));
+Camera cCamera(glm::vec3(0.0f, 100.0f, 100.0f));
 
 CDirectionalLight dlSun;
 
@@ -137,28 +138,28 @@ void RenderScene()
 
 	spMain.SetUniform("matrices.modelMatrix", glm::mat4(1.0));
 
+	// Now we're going to render terrain
+	hmWorld.SetRenderSize(10000.0f, 100.0f, 10000.0f);
 	// Render a house
 
 	CAssimpModel::BindModelsVAO();
 
-	glm::mat4 mModel = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 300.0f, 0.0f));
+	glm::mat4 mModel = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, hmWorld.HeightAt(glm::vec3(0.0f,0.0f,0.0f)), 0.0f));
 	mModel = glm::scale(mModel, glm::vec3(8, 8, 8)); // Casino :D
 
 	spMain.SetModelAndNormalMatrix("matrices.modelMatrix", "matrices.normalMatrix", mModel);
 	amModels[1].RenderModel();
 
 	// ... and also ONE wolf now only :P
-
-	mModel = glm::translate(glm::mat4(1.0), glm::vec3(-30.0f, 300.0f, 50.0f));
-	mModel = glm::scale(mModel, glm::vec3(2.8f, 2.8f, 2.8f));
+	//
+	mModel = glm::translate(glm::mat4(1.0), glm::vec3(-30.0f, hmWorld.HeightAt(glm::vec3(-30.0f, 0.0f, 0.0f)), 0.0f));
+	mModel = glm::scale(mModel, glm::vec3(3.0f, 3.0f, 3.0f));
 
 	spMain.SetModelAndNormalMatrix("matrices.modelMatrix", "matrices.normalMatrix", mModel);
 	amModels[0].RenderModel();
 
 
-	// Now we're going to render terrain
 
-	hmWorld.SetRenderSize(10000.0f, 300.0f, 10000.0f);
 	CShaderProgram* spTerrain = CMultiLayeredHeightmap::GetShaderProgram();
 
 	spTerrain->UseProgram();
@@ -189,7 +190,7 @@ void RenderScene()
 	cCamera.updateCameraVectors();
 
 	// Print something over scene
-
+			
 	spFont2D.UseProgram();
 	glDisable(GL_DEPTH_TEST);
 	// projection matrix
@@ -321,13 +322,12 @@ void processInput(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		cCamera.ProcessKeyboard(RIGHT, deltaTime);
 
-	//if (glfwGetKey(window, GLFW_KEY_KP_ADD) == GLFW_PRESS)
-	//	fAngleOfDarkness += 0.1f;
-	//if (glfwGetKey(window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
-	//{
-	//	fAngleOfDarkness -= 0.01f;
-	//}
-	//std::cout << fAngleOfDarkness << " " << fFrameInterval << std::endl;
+	if (glfwGetKey(window, GLFW_KEY_KP_ADD) == GLFW_PRESS)
+		fAngleOfDarkness += 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
+	{
+		fAngleOfDarkness -= -0.01f;
+	}
 }
 
 
