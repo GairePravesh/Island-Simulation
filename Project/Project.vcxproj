@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{5B0752BB-05D9-4D6A-9650-9014DB597BDC}</ProjectGuid>
-    <RootNamespace>IslandSimulation</RootNamespace>
+    <ProjectGuid>{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}</ProjectGuid>
+    <RootNamespace>Project</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;$(SolutionDir)Island Simulation\res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\assimp\lib;$(SolutionDir)Dependencies\Free Image\lib;$(SolutionDir)Dependencies\Free Type\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLFW\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -104,7 +104,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;$(SolutionDir)Island Simulation\res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\assimp\lib;$(SolutionDir)Dependencies\Free Image\lib;$(SolutionDir)Dependencies\Free Type\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLFW\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -119,7 +119,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;$(SolutionDir)Island Simulation\res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -136,7 +136,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\glm;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\Free Type\include;$(SolutionDir)Dependencies\Free Image\include;$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Island Simulation\src;$(SolutionDir)Island Simulation\res;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -146,80 +146,96 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\App.cpp" />
-    <ClCompile Include="src\assimp_model.cpp" />
-    <ClCompile Include="src\dirLight.cpp" />
-    <ClCompile Include="src\freeTypeFont.cpp" />
-    <ClCompile Include="src\heightmap.cpp" />
-    <ClCompile Include="src\shaders.cpp" />
-    <ClCompile Include="src\skybox.cpp" />
-    <ClCompile Include="src\texture.cpp" />
-    <ClCompile Include="src\vertexBufferObject.cpp" />
+    <ClCompile Include="src\imgui\imgui.cpp" />
+    <ClCompile Include="src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\models\house\house.3ds" />
-    <None Include="data\models\house\house.ms3d" />
-    <None Include="data\models\house\house.mtl" />
-    <None Include="data\models\Wolf\Wolf.mtl" />
-    <None Include="data\shaders\color.frag" />
-    <None Include="data\shaders\color.vert" />
-    <None Include="data\shaders\dirLight.frag" />
-    <None Include="data\shaders\fog.frag" />
-    <None Include="data\shaders\font2D.frag" />
-    <None Include="data\shaders\main_shader.frag" />
-    <None Include="data\shaders\main_shader.vert" />
-    <None Include="data\shaders\ortho2D.frag" />
-    <None Include="data\shaders\ortho2D.vert" />
-    <None Include="data\shaders\pointLight.frag" />
-    <None Include="data\shaders\spotLight.frag" />
-    <None Include="data\shaders\terrain.frag" />
-    <None Include="data\shaders\terrain.vert" />
-    <None Include="data\skyboxes\elbrus\elbrus.zip" />
-    <None Include="data\skyboxes\ely_hills\ely_hills.shader" />
+    <ClInclude Include="src\bezier.h" />
+    <ClInclude Include="src\framebuffer.h" />
+    <ClInclude Include="src\heightmap\heightmap.h" />
+    <ClInclude Include="src\icg_helper.h" />
+    <ClInclude Include="src\imgui\imconfig.h" />
+    <ClInclude Include="src\imgui\imgui.h" />
+    <ClInclude Include="src\imgui\imgui_internal.h" />
+    <ClInclude Include="src\imgui\stb_rect_pack.h" />
+    <ClInclude Include="src\imgui\stb_textedit.h" />
+    <ClInclude Include="src\imgui\stb_truetype.h" />
+    <ClInclude Include="src\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="src\logger.h" />
+    <ClInclude Include="src\quad\quad.h" />
+    <ClInclude Include="src\screenquad\screenquad.h" />
+    <ClInclude Include="src\shadows.h" />
+    <ClInclude Include="src\skybox\skybox.h" />
+    <ClInclude Include="src\stb_image.h" />
+    <ClInclude Include="src\terrain\terrain.h" />
+    <ClInclude Include="src\tiny_obj_loader.h" />
+    <ClInclude Include="src\water\water.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="data\models\house\house.jpg" />
-    <Image Include="data\models\Wolf\Wolf_body_D.tga" />
-    <Image Include="data\models\Wolf\Wolf_body_N.tga" />
-    <Image Include="data\models\Wolf\Wolf_body_S.tga" />
-    <Image Include="data\models\Wolf\Wolf_fur_D.tga" />
-    <Image Include="data\models\Wolf\Wolf_fur_N.tga" />
-    <Image Include="data\models\Wolf\Wolf_fur_S.tga" />
-    <Image Include="data\models\Wolf\Wolf_legs_D.tga" />
-    <Image Include="data\models\Wolf\Wolf_legs_N.tga" />
-    <Image Include="data\models\Wolf\Wolf_legs_S.tga" />
-    <Image Include="data\skyboxes\elbrus\elbrus_back.jpg" />
-    <Image Include="data\skyboxes\elbrus\elbrus_front.jpg" />
-    <Image Include="data\skyboxes\elbrus\elbrus_left.jpg" />
-    <Image Include="data\skyboxes\elbrus\elbrus_right.jpg" />
-    <Image Include="data\skyboxes\elbrus\elbrus_top.jpg" />
-    <Image Include="data\skyboxes\ely_hills\hills_bk.tga" />
-    <Image Include="data\skyboxes\ely_hills\hills_dn.tga" />
-    <Image Include="data\skyboxes\ely_hills\hills_ft.tga" />
-    <Image Include="data\skyboxes\ely_hills\hills_lf.tga" />
-    <Image Include="data\skyboxes\ely_hills\hills_rt.tga" />
-    <Image Include="data\skyboxes\ely_hills\hills_up.tga" />
-    <Image Include="data\textures\fungus.dds" />
-    <Image Include="data\textures\path.png" />
-    <Image Include="data\textures\rock_2_4w.jpg" />
-    <Image Include="data\textures\sand.jpg" />
-    <Image Include="data\textures\sand_grass_02.jpg" />
-    <Image Include="data\worlds\consider_this_question.bmp" />
+    <None Include="res\heightmap_fshader.glsl" />
+    <None Include="res\heightmap_vshader.glsl" />
+    <None Include="res\quad_fshader.glsl" />
+    <None Include="res\quad_vshader.glsl" />
+    <None Include="res\screenquad_fshader.glsl" />
+    <None Include="res\screenquad_vshader.glsl" />
+    <None Include="res\skybox_fshader.glsl" />
+    <None Include="res\skybox_vshader.glsl" />
+    <None Include="res\terrain_fshader.glsl" />
+    <None Include="res\terrain_vshader.glsl" />
+    <None Include="res\water_fshader.glsl" />
+    <None Include="res\water_vshader.glsl" />
+    <None Include="src\heightmap\heightmap_fshader.shader" />
+    <None Include="src\heightmap\heightmap_vshader.shader" />
+    <None Include="src\heightmap_fshader.glsl" />
+    <None Include="src\heightmap_vshader.glsl" />
+    <None Include="src\quad\quad_fshader.glsl" />
+    <None Include="src\quad\quad_vshader.glsl" />
+    <None Include="src\quad_fshader.glsl" />
+    <None Include="src\quad_vshader.glsl" />
+    <None Include="src\screenquad\screenquad_fshader.glsl" />
+    <None Include="src\screenquad\screenquad_vshader.glsl" />
+    <None Include="src\screenquad_fshader.glsl" />
+    <None Include="src\screenquad_vshader.glsl" />
+    <None Include="src\skybox\skybox_fshader.glsl" />
+    <None Include="src\skybox\skybox_vshader.glsl" />
+    <None Include="src\skybox_fshader.glsl" />
+    <None Include="src\skybox_vshader.glsl" />
+    <None Include="src\terrain\terrain_fshader.glsl" />
+    <None Include="src\terrain\terrain_vshader.glsl" />
+    <None Include="src\terrain_fshader.glsl" />
+    <None Include="src\terrain_vshader.glsl" />
+    <None Include="src\water\water_fshader.glsl" />
+    <None Include="src\water\water_vshader.glsl" />
+    <None Include="src\water_fshader.glsl" />
+    <None Include="src\water_vshader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data\skyboxes\elbrus\Note.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\assimp_model.h" />
-    <ClInclude Include="src\common_header.h" />
-    <ClInclude Include="src\dirLight.h" />
-    <ClInclude Include="src\flyingCamera.h" />
-    <ClInclude Include="src\freeTypeFont.h" />
-    <ClInclude Include="src\heightmap.h" />
-    <ClInclude Include="src\shaders.h" />
-    <ClInclude Include="src\skybox.h" />
-    <ClInclude Include="src\texture.h" />
-    <ClInclude Include="src\vertexBufferObject.h" />
+    <Image Include="res\Grass1.png" />
+    <Image Include="res\normal_map.jpg" />
+    <Image Include="res\quad_texture.tga" />
+    <Image Include="res\Rock5.png" />
+    <Image Include="res\Rock9.png" />
+    <Image Include="res\terrain_snow_texture.tga" />
+    <Image Include="res\terrain_texture.tga" />
+    <Image Include="res\water.png" />
+    <Image Include="src\Grass1.png" />
+    <Image Include="src\normal_map.jpg" />
+    <Image Include="src\quad\quad_texture.tga" />
+    <Image Include="src\quad_texture.tga" />
+    <Image Include="src\Rock5.png" />
+    <Image Include="src\Rock9.png" />
+    <Image Include="src\terrain\terrain_snow_texture.tga" />
+    <Image Include="src\terrain\terrain_texture.tga" />
+    <Image Include="src\terrain\texture\Grass1.png" />
+    <Image Include="src\terrain\texture\Rock5.png" />
+    <Image Include="src\terrain\texture\Rock9.png" />
+    <Image Include="src\terrain\texture\water.png" />
+    <Image Include="src\terrain_snow_texture.tga" />
+    <Image Include="src\terrain_texture.tga" />
+    <Image Include="src\water.png" />
+    <Image Include="src\water\normal_map.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui_impl_glfw_gl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\heightmap\heightmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\quad\quad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\screenquad\screenquad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\terrain\terrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bezier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framebuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skybox\skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shadows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui\stb_rect_pack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui\stb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui\stb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\water\water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui_impl_glfw_gl3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\icg_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\quad\quad_fshader.glsl" />
+    <None Include="src\quad\quad_vshader.glsl" />
+    <None Include="src\screenquad\screenquad_fshader.glsl" />
+    <None Include="src\screenquad\screenquad_vshader.glsl" />
+    <None Include="src\terrain\terrain_fshader.glsl" />
+    <None Include="src\terrain\terrain_vshader.glsl" />
+    <None Include="src\skybox\skybox_fshader.glsl" />
+    <None Include="src\skybox\skybox_vshader.glsl" />
+    <None Include="src\water\water_fshader.glsl" />
+    <None Include="src\water\water_vshader.glsl" />
+    <None Include="src\water_vshader.glsl" />
+    <None Include="src\water_fshader.glsl" />
+    <None Include="src\terrain_vshader.glsl" />
+    <None Include="src\terrain_fshader.glsl" />
+    <None Include="src\skybox_vshader.glsl" />
+    <None Include="src\skybox_fshader.glsl" />
+    <None Include="src\screenquad_vshader.glsl" />
+    <None Include="src\screenquad_fshader.glsl" />
+    <None Include="src\quad_vshader.glsl" />
+    <None Include="src\quad_fshader.glsl" />
+    <None Include="src\heightmap_vshader.glsl" />
+    <None Include="src\heightmap_fshader.glsl" />
+    <None Include="src\heightmap\heightmap_vshader.shader" />
+    <None Include="src\heightmap\heightmap_fshader.shader" />
+    <None Include="res\heightmap_fshader.glsl" />
+    <None Include="res\heightmap_vshader.glsl" />
+    <None Include="res\quad_fshader.glsl" />
+    <None Include="res\quad_vshader.glsl" />
+    <None Include="res\screenquad_fshader.glsl" />
+    <None Include="res\screenquad_vshader.glsl" />
+    <None Include="res\skybox_fshader.glsl" />
+    <None Include="res\skybox_vshader.glsl" />
+    <None Include="res\terrain_fshader.glsl" />
+    <None Include="res\terrain_vshader.glsl" />
+    <None Include="res\water_fshader.glsl" />
+    <None Include="res\water_vshader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\quad\quad_texture.tga" />
+    <Image Include="src\terrain\terrain_snow_texture.tga" />
+    <Image Include="src\terrain\terrain_texture.tga" />
+    <Image Include="src\terrain\texture\Grass1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\terrain\texture\Rock5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\terrain\texture\Rock9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\terrain\texture\water.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\water\normal_map.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\water.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\terrain_texture.tga" />
+    <Image Include="src\terrain_snow_texture.tga" />
+    <Image Include="src\Rock9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Rock5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\quad_texture.tga" />
+    <Image Include="src\normal_map.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Grass1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Grass1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\normal_map.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\quad_texture.tga" />
+    <Image Include="res\Rock5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Rock9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\terrain_snow_texture.tga" />
+    <Image Include="res\terrain_texture.tga" />
+    <Image Include="res\water.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

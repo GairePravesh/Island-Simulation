@@ -44,38 +44,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\assimp_model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\common_header.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dirLight.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\flyingCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\freeTypeFont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\heightmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\shaders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\skybox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vertexBufferObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="data\models\house\house.3ds" />
     <None Include="data\models\house\house.ms3d" />
     <None Include="data\models\house\house.mtl" />
@@ -94,6 +62,7 @@
     <None Include="data\shaders\terrain.frag" />
     <None Include="data\shaders\terrain.vert" />
     <None Include="data\skyboxes\elbrus\elbrus.zip" />
+    <None Include="data\skyboxes\ely_hills\ely_hills.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\models\house\house.jpg">
@@ -139,8 +108,46 @@
     <Image Include="data\worlds\consider_this_question.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="data\skyboxes\ely_hills\hills_bk.tga" />
+    <Image Include="data\skyboxes\ely_hills\hills_dn.tga" />
+    <Image Include="data\skyboxes\ely_hills\hills_ft.tga" />
+    <Image Include="data\skyboxes\ely_hills\hills_lf.tga" />
+    <Image Include="data\skyboxes\ely_hills\hills_rt.tga" />
+    <Image Include="data\skyboxes\ely_hills\hills_up.tga" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\skyboxes\elbrus\Note.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\assimp_model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common_header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dirLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\flyingCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\freeTypeFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\heightmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vertexBufferObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

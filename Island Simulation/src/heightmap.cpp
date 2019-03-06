@@ -77,7 +77,6 @@ bool CMultiLayeredHeightmap::LoadHeightMapFromImage(string sImagePath)
 			//std::cout << vVertexData[i][j].x << " " << vVertexData[i][j].y << " " << vVertexData[i][j].z << std::endl;
 		}
 	}
-
 	// Normals are here - the heightmap contains ( (iRows-1)*(iCols-1) quads, each one containing 2 triangles, therefore array of we have 3D array)
 	vector< vector<glm::vec3> > vNormals[2];
 	FOR(i, 2)vNormals[i] = vector< vector<glm::vec3> >(iRows-1, vector<glm::vec3>(iCols-1));
@@ -349,5 +348,5 @@ float CMultiLayeredHeightmap::HeightAt(const glm::vec3 & position)
 	int col = (int)((z + 0.5) * (iCols - 1));
 	//std::cout << row << " " << col << std::endl;
 	//std::cout << vVertexData[224][100].x << " " << vVertexData[100][100].y  << " " << vVertexData[100][100].z << std::endl;
-	return vRenderScale.y * vVertexData[row][col].y;
+	return vRenderScale.y * vVertexData[row][col].y ;
 }

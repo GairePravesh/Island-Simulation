@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Island Simulation", "Island Simulation\Island Simulation.vcxproj", "{5B0752BB-05D9-4D6A-9650-9014DB597BDC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project", "Project\Project.vcxproj", "{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{5B0752BB-05D9-4D6A-9650-9014DB597BDC}.Release|x64.Build.0 = Release|x64
 		{5B0752BB-05D9-4D6A-9650-9014DB597BDC}.Release|x86.ActiveCfg = Release|Win32
 		{5B0752BB-05D9-4D6A-9650-9014DB597BDC}.Release|x86.Build.0 = Release|Win32
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Debug|x64.ActiveCfg = Debug|x64
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Debug|x64.Build.0 = Debug|x64
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Debug|x86.ActiveCfg = Debug|Win32
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Debug|x86.Build.0 = Debug|Win32
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Release|x64.ActiveCfg = Release|x64
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Release|x64.Build.0 = Release|x64
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Release|x86.ActiveCfg = Release|Win32
+		{A46BAC2E-D553-41FF-AB4C-D1F1972FA695}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
