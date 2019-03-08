@@ -13,3 +13,4 @@
 - *https://mzucker.github.io/html/perlin-noise-math-faq.html*
 - *http://www.decarpentier.nl/scape-procedural-basics*
 - *https://thebookofshaders.com/*
+- *http://libnoise.sourceforge.net/index.html*
