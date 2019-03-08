@@ -12,3 +12,4 @@
 - *https://www.3dgep.com*
 - *https://mzucker.github.io/html/perlin-noise-math-faq.html*
 - *http://www.decarpentier.nl/scape-procedural-basics*
+- *https://thebookofshaders.com/*
