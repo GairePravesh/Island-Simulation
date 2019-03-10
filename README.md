@@ -5,6 +5,7 @@
 - Water simulation 
 - Atmospheric Light Scattering 
 - Sun set and rise
+- All rendering values can be changed in run time using a gui to change the way scene is modeled.
 #### Team Members:
 - Anisha Adhikari
 - Pravesh Gaire
