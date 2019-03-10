@@ -1,5 +1,16 @@
-# Project Work On 
-## References:
+# Island Simulation
+## 5th sem Computer Graphics Project, IOE Pulchowk Campus
+### Main Features
+- Procedural terrain generation using different perlin noise based algo's
+- Water simulation 
+- Atmospheric Light Scattering 
+- Sun set and rise
+#### Team Members:
+- Anisha Adhikari
+- Pravesh Gaire
+- Ram Sharan Rimal
+- Sampada Dhakal
+### References:
 - *https://www.khronos.org/opengl/wiki/*
 - *http://www.opengl-tutorial.org/*
 - *https://learnopengl.com/*
@@ -15,8 +26,4 @@
 - *https://thebookofshaders.com/*
 - *http://libnoise.sourceforge.net/index.html*
 
-![ScreenShot](./Screenshot (27).png)
-![ScreenShot](./Screenshot\ (28).png)
-![ScreenShot](./Screenshot\ (29).png)
-![ScreenShot](./Screenshot\ (30).png)
-![ScreenShot](./Screenshot\ (31).png)
+Screenshots and project report are available in root path.
