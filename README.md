@@ -15,9 +15,9 @@
 - *https://thebookofshaders.com/*
 - *http://libnoise.sourceforge.net/index.html*
 
-![Screenshot](Screenshot (26).jpg)
-![Screenshot](Screenshot (27).jpg)
-![Screenshot](Screenshot (28).jpg)
-![Screenshot](Screenshot (29).jpg)
-![Screenshot](Screenshot (30).jpg)
-![Screenshot](Screenshot (31).jpg)
+![Screenshot](Screenshot (26).png)
+![Screenshot](Screenshot (27).png)
+![Screenshot](Screenshot (28).png)
+![Screenshot](Screenshot (29).png)
+![Screenshot](Screenshot (30).png)
+![Screenshot](Screenshot (31).png)
