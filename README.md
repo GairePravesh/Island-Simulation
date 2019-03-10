@@ -15,10 +15,9 @@
 - *https://thebookofshaders.com/*
 - *http://libnoise.sourceforge.net/index.html*
 
-
-<img src="Screenshot (26).jpg">
-<img src="Screenshot (27).jpg">
-<img src="Screenshot (28).jpg">
-<img src="Screenshot (29).jpg">
-<img src="Screenshot (30).jpg">
-<img src="Screenshot (31).jpg"> 
+![Screenshot]("Screenshot (26).jpg")
+![Screenshot]("Screenshot (27).jpg")
+![Screenshot]("Screenshot (28).jpg")
+![Screenshot]("Screenshot (29).jpg")
+![Screenshot]("Screenshot (30).jpg")
+![Screenshot]("Screenshot (31).jpg")
