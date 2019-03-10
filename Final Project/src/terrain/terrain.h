@@ -74,7 +74,7 @@ public:
     float fheight_ = 0.1f, fslope_ = 1.2f, fcolor_ = 0.8333f;
     float light_bias_min_ = 5, light_bias_max_ = 20;
     bool wireframe_mode_ = false;
-    vec3 cam_pos_, fog_color_;
+    vec3 cam_pos_, fog_color_ = { 0.73, 0.8, 1.0 };
     float fog_start_ = 80.0f, fog_end_ = 100.0f, fog_density_ = 0.004f, fog_power_ = 6.0f;
     int fog_type_ = 1;
     vec2 hoffset_ = vec2(0.0f);
@@ -177,10 +177,10 @@ public:
 
         LoadTexture("res/terrain_texture.tga", "tex_color", &texture_color_id_, 1, false, GL_CLAMP_TO_EDGE);
         LoadTexture("res/terrain_snow_texture.tga", "tex_snow_color", &texture_snow_color_id_, 2, false, GL_CLAMP_TO_EDGE);
-        LoadTexture("res/texture/Grass1.png",	"grass_tex",	&texture_grass_id_, 3);
-        LoadTexture("res/texture/Rock9.png",	"sand_tex",		&texture_sand_id_,	4);
-        LoadTexture("res/texture/Rock5.png",	"rock_tex",		&texture_rock_id_,	5);
-        LoadTexture("res/texture/water.png",    "snow_tex",		&texture_snow_id_,	6);
+        LoadTexture("res/Grass1.png",	"grass_tex",	&texture_grass_id_, 3);
+        LoadTexture("res/Rock9.png",	"sand_tex",		&texture_sand_id_,	4);
+        LoadTexture("res/Rock5.png",	"rock_tex",		&texture_rock_id_,	5);
+        LoadTexture("res/water.png",    "snow_tex",		&texture_snow_id_,	6);
 
         // other uniforms
         projection_id_ = glGetUniformLocation(program_id_, "projection");

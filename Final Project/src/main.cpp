@@ -14,10 +14,8 @@
 #include "terrain/terrain.h"
 #include "framebuffer.h"
 #include "shadows.h"
-#include "bezier.h"
 #include "water/water.h"
 #include "skybox/skybox.h"
-#include "screenquad/screenquad.h"
 
 #define CAMERA_SPEED (0.05)
 #define FRAMEBUFFER_RATIO (0.50)
@@ -28,7 +26,6 @@ Heightmap heightmap;
 Terrain terrain;
 Water water;
 Framebuffer water_reflection;
-ScreenQuad sq;
 SkyBox skybox;
 Shadows shadows;
 
@@ -40,7 +37,7 @@ const vec3 cam_up = vec3(0.0f, 0.0f, 1.0f);
 const int grid_tesselation = 512, grid_area = 600;
 
 enum camera_type {
-	CAMERA_FREE, CAMERA_FPS, CAMERA_PATH, CAMERA_HOUR
+	CAMERA_FREE, CAMERA_FPS
 };
 
 mat4 projection_matrix;
@@ -57,30 +54,6 @@ vec3 light_pos;
 
 GLuint shadows_tex_id = 0;
 GLuint heightmap_tex_id = 0;
-
-vector<vec3> camera_controls = generate_piecewise_bezier(vector<vec3>{
-	vec3(0.421, -1.211, 6.75),
-		vec3(0.684, -1.750, 6.75),
-		vec3(1.551, -1.728, 6.75),
-		vec3(1.730, -1.202, 2.58),
-}, 2);
-
-vector<vec2> orientation_controls = generate_piecewise_bezier(vector<vec2>{
-	vec2(2.377, -1.753),
-		vec2(3.400, -1.753),
-		vec2(4.622, -1.753),
-		vec2(5.937, -1.593),
-}, 2);
-
-vector<vec3> diffuse_controls = generate_piecewise_bezier(vector<vec3>{
-	vec3(0.1, 0.1, 0.2), // 0h
-		vec3(0.1, 0.1, 0.2), // 4h
-		vec3(0.6, 0.8, 0.3), // 8h
-		vec3(1.0, 1.0, 1.0), // 12h
-		vec3(1.0, 1.0, 0.4), // 16h
-		vec3(1.0, 0.4, 0.2), // 20h
-		vec3(0.1, 0.1, 0.2), // 24h
-}, 0);
 
 void Init(GLFWwindow* window) {
 	glClearColor(1.0, 1.0, 1.0 /*white*/, 1.0 /*solid*/);
@@ -109,7 +82,6 @@ void Init(GLFWwindow* window) {
 
 	GLuint reflection_texture_id = water_reflection.Init(water_framebuffer_width, water_framebuffer_height);
 
-	//sq.Init(window_width, window_height, reflection_texture_id);
 	water.Init(heightmap_tex_id, reflection_texture_id, grid_tesselation, grid_area, FRAMEBUFFER_RATIO, &heightmap.dx_, &heightmap.dy_);
 
 	skybox.Init();
@@ -118,14 +90,16 @@ void Init(GLFWwindow* window) {
 
 
 void Update(float dt) {
-	static bool first_run = true, lock_height = true, show_lighting = true;
+	static bool first_run = true, show_lighting = true;
 	static float speed = 0.0;
 	static float hoffset[2] = { heightmap.dx_, heightmap.dy_ }, sm_edges[2] = { 60.0f, 45.0f };
 	static float camera_position[3] = { 0.0, 0.0, 0.0 };
 	static float camera_direction[2] = { 0.0, 0.0 };
 	static float fog_color[3] = { 0.73, 0.8, 1.0 };
-	static float hour = 18.5, timer = 0.0;
 	static enum camera_type cam_type = CAMERA_FREE;
+	static float hour = 18.5;
+
+
 
 	camera_position[0] = cam_pos[0]; camera_position[1] = cam_pos[1]; camera_position[2] = cam_pos[2];
 	camera_direction[0] = cam_dir[0]; camera_direction[1] = cam_dir[1];
@@ -139,12 +113,8 @@ void Update(float dt) {
 	if (ImGui::CollapsingHeader("Camera")) {
 		ImGui::DragFloat3("position", camera_position, 0.005);
 		ImGui::DragFloat2("direction", camera_direction, 0.005);
-		ImGui::SliderFloat("timer", &timer, 0.0, 1.0);
 		ImGui::RadioButton("free", (int*)&cam_type, CAMERA_FREE); ImGui::SameLine();
 		ImGui::RadioButton("FPS", (int*)&cam_type, CAMERA_FPS); ImGui::SameLine();
-		ImGui::RadioButton("bezier path", (int*)&cam_type, CAMERA_PATH); ImGui::SameLine();
-		ImGui::RadioButton("time", (int*)&cam_type, CAMERA_HOUR);
-		ImGui::Checkbox("lock cam height", &lock_height); ImGui::SameLine();
 		ImGui::Checkbox("wireframe", &terrain.wireframe_mode_);
 
 		cam_pos[0] = camera_position[0]; cam_pos[1] = camera_position[1]; cam_pos[2] = camera_position[2];
@@ -155,54 +125,7 @@ void Update(float dt) {
 		ImGui::SetNextTreeNodeOpen(true);
 
 	if (ImGui::CollapsingHeader("Terrain Options")) {
-		ImGui::DragFloat2("hoffset", hoffset, 0.005);
-		ImGui::DragFloat("voffset", &heightmap.voffset_, 0.005);
-
-		ImGui::DragFloat("hcomp", &heightmap.hcomp_, 0.005);
-		ImGui::DragFloat("vcomp", &heightmap.vcomp_, 0.005);
-
 		ImGui::DragInt("seed", &heightmap.seed_, 0.05);
-		ImGui::DragFloat("speed", &speed, 0.01);
-	}
-
-	if (first_run)
-		ImGui::SetNextTreeNodeOpen(true);
-
-	if (ImGui::CollapsingHeader("Fog Options")) {
-		ImGui::RadioButton("linear", &terrain.fog_type_, 0); ImGui::SameLine();
-		ImGui::RadioButton("exponential", &terrain.fog_type_, 1);
-
-		ImGui::SliderFloat("start", &terrain.fog_start_, 20, 100);
-		ImGui::SliderFloat("end", &terrain.fog_end_, 20, 100);
-		ImGui::SliderFloat3("color", fog_color, 0.0, 1.0);
-		ImGui::DragFloat("density", &terrain.fog_density_, 0.0001);
-		ImGui::DragFloat("power", &terrain.fog_power_, 0.005);
-
-		terrain.fog_color_[0] = fog_color[0];
-		terrain.fog_color_[1] = fog_color[1];
-		terrain.fog_color_[2] = fog_color[2];
-
-		water.fog_type_ = terrain.fog_type_;
-		water.fog_start_ = terrain.fog_start_;
-		water.fog_end_ = terrain.fog_end_;
-		water.fog_color_[0] = fog_color[0];
-		water.fog_color_[1] = fog_color[1];
-		water.fog_color_[2] = fog_color[2];
-		water.fog_density_ = terrain.fog_density_;
-		water.fog_power_ = terrain.fog_power_;
-
-		glClearColor(fog_color[0], fog_color[1], fog_color[2], 1.0);
-	}
-
-	if (first_run)
-		ImGui::SetNextTreeNodeOpen(true);
-
-	if (ImGui::CollapsingHeader("Texture Options")) {
-		ImGui::DragFloat("fcolor", &terrain.fcolor_, 0.005);
-		ImGui::DragFloat("fslope", &terrain.fslope_, 0.005);
-		ImGui::DragFloat("fheight", &terrain.fheight_, 0.005);
-		ImGui::DragFloat("hsnow", &terrain.hsnow_, 0.005);
-		ImGui::DragFloat("fsnow", &terrain.fsnow_, 0.005);
 	}
 
 	if (first_run)
@@ -216,7 +139,6 @@ void Update(float dt) {
 
 		ImGui::SliderFloat("H", &heightmap.H_, 0.01, 2.0);
 		ImGui::SliderFloat("lacunarity", &heightmap.lacunarity_, 0.8, 3.0);
-		ImGui::SliderFloat("warp", &heightmap.warp_, 0.01, 2.0);
 		ImGui::SliderInt("octaves", &heightmap.octaves_, 1, 24);
 	}
 
@@ -226,8 +148,7 @@ void Update(float dt) {
 	if (ImGui::CollapsingHeader("Lightings")) {
 		//ImGui::Begin("Lighting", &show_lighting, 0);
 
-		ImGui::SliderFloat("hour", &hour, 6.0, 20.0);
-		ImGui::SliderFloat("sun delta", &skybox.sun_delta_, -1.0, 1.0);
+		ImGui::SliderFloat("hour", &hour, 0.0, 24.0);
 
 		float diffuse_color_arr[3] = {
 			terrain.diffuse_color_[0],
@@ -236,27 +157,19 @@ void Update(float dt) {
 		};
 
 		ImGui::DragFloat("diffuse", &terrain.diffuse_, 0.005);
-		ImGui::ColorEdit3("diffuse color", diffuse_color_arr);
-		//ImGui::DragFloat("specular", &terrain.specular_, 0.005);
-		//ImGui::DragFloat("alpha", &terrain.alpha_, 0.5);
-
-		ImGui::SliderFloat("light bias min", &terrain.light_bias_min_, 0.1, 10);
-		ImGui::SliderFloat("light bias max", &terrain.light_bias_max_, 0.1, 20);
-		ImGui::SliderFloat2("SM edges", sm_edges, 0.0, 300.0);
-
-		ImGui::Image((void*)shadows_tex_id, ImVec2(512, 512));
-
-		ImGui::SliderFloat("rotate X", &skybox.rotX_, 0.0, 2 * 3.142);
-		ImGui::SliderFloat("rotate Y", &skybox.rotY_, 0.0, 2 * 3.142);
-		ImGui::SliderFloat("rotate Z", &skybox.rotZ_, 0.0, 2 * 3.142);
-		
+		ImGui::ColorEdit3("diffuse color", diffuse_color_arr);	
 	}
 
 	skybox.hour_ = 24.0 - hour + 2.0;
-	terrain.diffuse_color_ = evaluate_piecewise_bezier(diffuse_controls, hour / 24.0f);
 
-	if (first_run)
-		ImGui::SetNextTreeNodeOpen(true);
+	if (hour < 4.0f)	terrain.diffuse_color_ = vec3(0.1, 0.1, 0.2);
+	else if (hour < 8.0f)	terrain.diffuse_color_ = vec3(0.1, 0.1, 0.2);
+	else if (hour < 12.0f)	terrain.diffuse_color_ = vec3(0.6, 0.8, 0.3);
+	else if (hour < 16.0f)	terrain.diffuse_color_ = vec3(0.6, 0.8, 0.3);
+	else if (hour < 20.0f)	terrain.diffuse_color_ = vec3(1.0, 1.0, 0.4);
+	else terrain.diffuse_color_ = vec3(1.0, 0.4, 0.2);
+	
+	
 
 	// Updating lighting
 	float sun_angle = IM_PI * (skybox.hour_ - 7.0) / 12.0;
@@ -289,9 +202,7 @@ void Update(float dt) {
 
 		vec2 cam_dir_2d(-cos(cam_dir.x), -sin(cam_dir.x));
 
-		if (cam_type == CAMERA_FREE && !lock_height)
-			cam_pos.z += dt * 60.0f * cam_speed * cam_vel[0] * cam_target.z;
-		else if (cam_type == CAMERA_FPS) {
+		if (cam_type == CAMERA_FPS) {
 			float dz = heightmap.GetCenterHeight(cam_pos[0], cam_pos[1]) + 1.0f - cam_pos.z;
 			cam_vel.z += dt * (200.0 * dz - cam_vel.z * 10.0);
 		}
@@ -306,31 +217,6 @@ void Update(float dt) {
 			hoffset[0] += speed * dt * cam_dir_2d.x + dt * cam_vel[0] * cam_speed * cam_dir_2d.x - dt * cam_vel[1] * cam_speed * cam_dir_2d.y;
 			hoffset[1] += speed * dt * cam_dir_2d.y + dt * cam_vel[0] * cam_speed * cam_dir_2d.y + dt * cam_vel[1] * cam_speed * cam_dir_2d.x;
 		}
-	}
-	else if (cam_type == CAMERA_PATH) {
-		timer = glm::clamp(timer + cam_acc[0] * dt, 0.0f, 1.0f);
-		cam_dir = evaluate_piecewise_bezier(orientation_controls, timer);
-		vec3 b_cam_pos = evaluate_piecewise_bezier(camera_controls, timer);
-		hoffset[0] = b_cam_pos.x;
-		hoffset[1] = b_cam_pos.y;
-		cam_pos.z = b_cam_pos.z;
-
-		cam_target = vec3(
-			sin(cam_dir.y) * cos(cam_dir.x),
-			sin(cam_dir.y) * sin(cam_dir.x),
-			cos(cam_dir.y)
-		);
-	}
-	else {
-		hour = glm::clamp(hour + cam_acc[0] * 2 * dt, 6.0f, 20.0f);
-		skybox.hour_ = 24.0 - hour + 2.0;
-		terrain.diffuse_color_ = bezier(diffuse_controls, hour / 24.0f);
-
-		cam_target = vec3(
-			sin(cam_dir.y) * cos(cam_dir.x),
-			sin(cam_dir.y) * sin(cam_dir.x),
-			cos(cam_dir.y)
-		);
 	}
 	
 	terrain.hoffset_.x = heightmap.dx_ = floor(hoffset[0]);// * grid_area * 2 / grid_tesselation)*grid_tesselation / grid_area / 2;
@@ -356,12 +242,6 @@ void Display() {
 
 	float time = glfwGetTime();
 
-
-	/*
-	vec3 bPoints = getBezierPoint(time);
-	cam_pos[2] = bPoints[2];
-	cam_dir = vec2(bPoints[0], bPoints[1]);
-	*/
 
 	// Draw the water reflection on a framebuffer
 	{
@@ -410,7 +290,6 @@ void Display() {
 	water.Draw(IDENTITY_MATRIX, view_matrix, projection_matrix);
 	glDisable(GL_BLEND);
 
-	sq.Draw();
 }
 
 // gets called when the windows/framebuffer is resized.
@@ -622,7 +501,6 @@ int main(int argc, char *argv[]) {
 	water_reflection.Cleanup();
 	skybox.Cleanup();
 	shadows.Cleanup();
-	sq.Cleanup();
 
 	// close OpenGL window and terminate GLFW
 	ImGui_ImplGlfwGL3_Shutdown();
